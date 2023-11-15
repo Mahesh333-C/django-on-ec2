@@ -26,20 +26,20 @@ jobs:
          
      - name: Install sshpass
        run: sudo apt-get install -y sshpass
-       
+      
      - name: SSH into EC2 instance
        env:
-        SSH_USERNAME: ${{ secrets.username }}
-        SSH_PASSWORD: ${{ secrets.password }}
-        SSH_IP: ${{ secrets.ipaddress }}
+         SSH_USERNAME: ${{ secrets.username }}
+         SSH_PASSWORD: ${{ secrets.password }}
+         SSH_IP: ${{ secrets.ipaddress }}
        run: |
          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP <<EOF
-          # Navigate to the directory where you want to run ls
-          sudo cd /home/ec2-user
-          pwd
-          sudo cd django-on-ec2
-          # Execute ls command
-          sudo ls
-          # Exit SSH session
-          exit
-          EOF
+         # Navigate to the directory
+         cd /home/ec2-user/django-on-ec2
+         pwd
+         # Execute ls command
+         ls
+         # Exit SSH session
+         exit
+         EOF
+
