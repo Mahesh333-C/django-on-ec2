@@ -35,11 +35,12 @@ jobs:
        run: |
          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP <<EOF
          # Navigate to the directory
-         cd /home/ec2-user/django-on-ec2
+         cd django-on-ec2
          pwd
          # Execute ls command
          ls
-         # Exit SSH session
+         # git pull
+         # fuser -k 8000/tcp
          exit
          EOF
 
