@@ -36,6 +36,7 @@ jobs:
          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP <<EOF
           # Navigate to the directory where you want to run ls
           pwd
+          cd ec2-user
           # Execute ls command
           ls
           # Exit SSH session
