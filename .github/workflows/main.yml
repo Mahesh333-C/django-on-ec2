@@ -1,0 +1,43 @@
+name: frontend # Name of the workflo
+on:
+  push: 
+    branches: 
+      - main
+  workflow_dispatch: # Allow manual invocation of the workflow
+permissions:
+   id-token: write
+   contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+     id-token: write
+     contents: write
+    steps:
+     - name: Check out code
+       uses: actions/checkout@v2
+     - name: Configure AWS credentials
+       uses: aws-actions/configure-aws-credentials@master
+       with:
+         role-to-assume: arn:aws:iam::419707294796:role/GitRole
+         role-session-name: infra-session
+         aws-region: us-east-1
+         
+     - name: Install sshpass
+       run: sudo apt-get install -y sshpass
+       
+     - name: SSH into EC2 instance
+       env:
+        SSH_USERNAME: ${{ secrets.username }}
+        SSH_PASSWORD: ${{ secrets.password }}
+        SSH_IP: ${{ secrets.ipaddress }}
+       run: |
+         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP <<EOF
+          # Navigate to the directory where you want to run ls
+          pwd
+          # Execute ls command
+          ls
+          # Exit SSH session
+          exit
+          EOF
