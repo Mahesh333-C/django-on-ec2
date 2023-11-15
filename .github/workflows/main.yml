@@ -35,11 +35,11 @@ jobs:
        run: |
          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP <<EOF
           # Navigate to the directory where you want to run ls
-          cd /home/ec2-user
+          sudo cd /home/ec2-user
           pwd
-          cd django-on-ec2
+          sudo cd django-on-ec2
           # Execute ls command
-          ls
+          sudo ls
           # Exit SSH session
           exit
           EOF
