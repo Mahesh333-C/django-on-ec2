@@ -39,8 +39,9 @@ jobs:
          pwd
          # Execute ls command
          ls
-         # git pull
-         # fuser -k 8000/tcp
+         fuser -k 8000/tcp
+         git pull
+         sudo python3 manage.py runserver
          exit
          EOF
 
