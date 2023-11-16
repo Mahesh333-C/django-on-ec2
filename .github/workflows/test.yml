@@ -1,0 +1,21 @@
+name: Self-Hosted Job
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  self_hosted_job:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: List files
+        run: ls
+
+      - name: Print working directory
+        run: pwd
