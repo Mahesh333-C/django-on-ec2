@@ -17,12 +17,12 @@ jobs:
     steps:
      - name: Check out code
        uses: actions/checkout@v2
-     # - name: Configure AWS credentials
-     #   uses: aws-actions/configure-aws-credentials@master
-     #   with:
-     #     role-to-assume: arn:aws:iam::419707294796:role/GitRole
-     #     role-session-name: infra-session
-     #     aws-region: us-east-1
+     - name: Configure AWS credentials
+       uses: aws-actions/configure-aws-credentials@master
+       with:
+         role-to-assume: arn:aws:iam::419707294796:role/GitRole
+         role-session-name: infra-session
+         aws-region: us-east-1
          
      - name: Install sshpass
        run: sudo apt-get install -y sshpass
@@ -33,7 +33,7 @@ jobs:
          SSH_PASSWORD: ${{ secrets.password }}
          SSH_IP: ${{ secrets.ipaddress }}
        run: |
-         sshpass -p "mahesh3@AM!" ssh -o StrictHostKeyChecking=no dci\mahec@10.120.152.119 <<EOF
+         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP <<EOF
          # Navigate to the directory
          # cd django-on-ec2
          pwd
